@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Logging;
 
     public class Program
     {
@@ -23,6 +24,12 @@
             .ConfigureAppConfiguration((builderContext, config) =>
             {
                 config.AddJsonFile("appsettings.local.json", true, true);
+            })
+            .ConfigureLogging((hostingContext, logging) =>
+            {
+                logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                logging.AddConsole();
+                logging.AddDebug();
             })
             .UseStartup<Startup>()
             .Build();

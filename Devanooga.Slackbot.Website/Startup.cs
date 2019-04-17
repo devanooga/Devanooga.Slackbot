@@ -1,6 +1,7 @@
 ﻿namespace Devanooga.Slackbot.Website
 {
     using System;
+    using System.Threading.Tasks;
     using Authorization;
     using Data.Entity;
     using DependencyInjection;
@@ -17,6 +18,7 @@
     using RollbarDotNet.Configuration;
     using RollbarDotNet.Core;
     using RollbarDotNet.Logger;
+    using Slack;
 
     public class Startup
     {
@@ -40,6 +42,7 @@
                     options.KnownNetworks.Clear();
                     options.KnownProxies.Clear();
                 })
+                .Configure<SlackBotOptions>(o => Configuration.GetSection("SlackBot").Bind(o))
                 .Configure<RollbarOptions>(o => Configuration.GetSection("Rollbar").Bind(o))
                 .AddDevanoogaSlackbot(Configuration)
                 .AddMvc()
@@ -68,6 +71,9 @@
                 {
                     context.Database.Migrate();
                 }
+
+                var slackBotClient = serviceScope.ServiceProvider.GetService<SlackBotClient>();
+                Task.Run(async () => await slackBotClient.Connect());
             }
 
             app

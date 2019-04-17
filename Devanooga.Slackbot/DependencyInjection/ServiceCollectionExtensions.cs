@@ -4,6 +4,7 @@ namespace Devanooga.Slackbot.DependencyInjection
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Slack;
 
     public static class ServiceCollectionExtensions
     {
@@ -14,7 +15,8 @@ namespace Devanooga.Slackbot.DependencyInjection
                 .AddDbContext<SlackBotContext>(options =>
                     options.UseNpgsql(
                         configuration.GetConnectionString("Default"),
-                        o => o.MigrationsAssembly("Devanooga.Slackbot.Data.Entity")));
+                        o => o.MigrationsAssembly("Devanooga.Slackbot.Data.Entity")))
+                .AddSingleton<SlackBotClient>();
         }
     }
 }
