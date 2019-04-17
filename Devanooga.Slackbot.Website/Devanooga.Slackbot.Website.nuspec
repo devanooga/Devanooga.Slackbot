@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Devanooga.Slackbot.Website</id>
+        <version>1.0.0</version>
+        <authors>Devanooga</authors>
+        <description>Devanooga.Slackbot.Website</description>
+    </metadata>
+    <files>
+        <file src="..\..\published-app\**\*.*"/>
+    </files>
+</package>

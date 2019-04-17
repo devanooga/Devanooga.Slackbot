@@ -1,0 +1,25 @@
+@using Devanooga.Slackbot.Website.Controllers
+@using RollbarDotNet.Payloads
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Devanooga Slack Bot - @ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Header", false)
+</head>
+<body>
+<header>
+    <partial name="_Navigation" />
+</header>
+<div class="container">
+    @RenderBody()
+    <div>
+        Devanooga Slack Bot v@(typeof(HomeController).Assembly.GetName().Version.ToString(3)) 
+    </div>
+</div>
+@RenderSection("Scripts", false)
+</body>
+</html>

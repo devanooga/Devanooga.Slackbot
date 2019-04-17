@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:9.6
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 8d5n7SgiT28Wm6cfYpnM
+    ports:
+        - 5432:5432
+    volumes:
+      - devanoogabot_postgres_data:/var/lib/postgresql/data
+volumes:
+  devanoogabot_postgres_data: {}
