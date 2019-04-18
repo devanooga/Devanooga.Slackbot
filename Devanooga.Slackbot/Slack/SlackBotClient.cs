@@ -38,8 +38,8 @@ namespace Devanooga.Slackbot.Slack
                 {
                     Logger.LogError($"SlackSocketClient Error: {loginResponse.error}");
                 }
-            }), (() =>
-                Logger.LogInformation("Socket connected")));
+            }), () =>
+                Logger.LogInformation("Socket connected"));
             SlackSocketClient.OnMessageReceived += message =>
             {
                 Logger.LogInformation(JsonConvert.SerializeObject(message));
@@ -50,6 +50,11 @@ namespace Devanooga.Slackbot.Slack
             };
             await SlackTaskClient.ConnectAsync();
             var response = await SlackTaskClient.PostMessageAsync("#sandbox", "Hi", "I'm a bot");
+            if (!response.ok)
+            {
+                Logger.LogError($"Post Message Error: {response.error}");
+            }
+            
             Logger.LogInformation("Connected");
         }
     }
